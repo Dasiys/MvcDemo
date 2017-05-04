@@ -1,0 +1,5 @@
+F:\project\MvcDemo\MvcDemo\Model\bin\Debug\Model.dll
+F:\project\MvcDemo\MvcDemo\Model\bin\Debug\Model.pdb
+F:\project\MvcDemo\MvcDemo\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+F:\project\MvcDemo\MvcDemo\Model\obj\Debug\Model.dll
+F:\project\MvcDemo\MvcDemo\Model\obj\Debug\Model.pdb

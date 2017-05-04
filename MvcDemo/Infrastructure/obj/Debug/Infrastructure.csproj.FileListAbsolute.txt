@@ -1,0 +1,8 @@
+F:\project\MvcDemo\MvcDemo\Infrastructure\bin\Debug\Infrastructure.dll
+F:\project\MvcDemo\MvcDemo\Infrastructure\bin\Debug\Infrastructure.pdb
+F:\project\MvcDemo\MvcDemo\Infrastructure\bin\Debug\System.Web.Mvc.dll
+F:\project\MvcDemo\MvcDemo\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
+F:\project\MvcDemo\MvcDemo\Infrastructure\obj\Debug\Infrastructure.dll
+F:\project\MvcDemo\MvcDemo\Infrastructure\obj\Debug\Infrastructure.pdb
+F:\project\MvcDemo\MvcDemo\Infrastructure\bin\Debug\Model.dll
+F:\project\MvcDemo\MvcDemo\Infrastructure\bin\Debug\Model.pdb

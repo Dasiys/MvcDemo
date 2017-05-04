@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MvcDemo.Controllers
@@ -26,5 +24,12 @@ namespace MvcDemo.Controllers
 
             return View();
         }
+        public ActionResult Address()
+        {
+            IList<Address> address=new List<Address>();
+            UpdateModel(address);
+            return View(address);
+        }
+
     }
 }

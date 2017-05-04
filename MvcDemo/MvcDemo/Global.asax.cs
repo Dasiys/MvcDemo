@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Model;
 
 namespace MvcDemo
 {
@@ -13,6 +15,8 @@ namespace MvcDemo
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            //ValueProviderFactories.Factories.Insert(0, new CustomValueProviderFactory());
+            ModelBinders.Binders.Add(typeof(Address),new AddressBinder());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
