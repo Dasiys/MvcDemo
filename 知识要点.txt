@@ -1,0 +1,188 @@
+
+1、Url Routing:
+
+   对Routing进行限制，Routing可以用正则表达式进行限制;
+
+   配置静态文件;
+
+   自定义Route constraint
+
+
+2、Area使用
+
+  自定义一个Area;
+
+  在路由配置中设置原有controller的namesapce;
+
+
+3、Controller和Action（1）
+
+   实现Icontroller接口;
+
+   从上下文中获取数据：Request，HttpContext;
+
+   Action方法中获取参数，Request.Form[""],Request.QueryString,RouteData;
+
+   自定义ActionResult，在Action中调用（不必再global的Application_Start中注册）;
+
+   TempData是存在于session中的
+
+
+4、Controller和Action(2)
+
+   控制器调用顺序:Request->Routing->Controller Factory->Controller->ActionInvoker->ActionMethod->Response;
+
+   自定义ControllerFactory，最重要的是方法CreateController，需要在Global的Application_Start中注册，注册形式为:ControllerBuilder.Current.SetControllerFactory(new ....);
+
+   默认是使用DefaultControllerFactory，通过GetControllerType来指定需要实例化的Controller的类型，通过CreateController把这个要实例化的Controller类型传递给GetControllerInstance,
+   在GetControllerInstance方法中，通过DefaultControllerActivator类中（实现了IControllerActivator接口）的Create方法来激活Controller；
+
+   定义简单的Controller Activator，自己自定义其中的Create方法来激活Controller，需要在Global中注册，注册方法:ControllerBuilder.Current.SetControllerFactory(new   		     DefaultControllerFactory(new ...));
+
+   自定义ActionInvoker，实现IActionInvoker接口，在Action中通过this.ActionInvoker=New ActionInvoker（）来调用
+
+   使用内置ActionInvoker方法，可以对Action重命名，[ActionName("")]；
+
+   通过实现ActionMethodSelectorAttribute来判断是否可以调用这个Actioon
+
+   异步方法：作用是Await过程中，线程处于空闲，可以处理别的请求（iis中线程的数量是不变的，通过线程回收利用来处理别的请求，不用每次有请求的时候，都重新创建一个线程）
+
+5、EntityFramework
+
+   IQueryable<>返回类型会根据Linq语句生成sql语言在数据库中查询,但是IEnumerable则是把全部数据都读出来放到内存中再根据Linq语句进行查询
+
+
+6、Filter
+
+   Action:在Action方法之前或之后运行
+
+   Exception：在抛出异常时运行
+
+   Result:在Action执行前或者执行后运行
+
+   Authorize:在Action和其他Filter之前运行
+
+   通过实现IExceptionFilter,自定义Exception过滤器，所有的过滤器必须实现MvcFilter，可以通过继承FilterAttribute基类
+
+   可以在配置文件中增加以下节点，<customErrors mode="On" defaultRedirect="/Content/RangeErrorPage.html"/>，将错误跳转到错误页面
+
+   HandlerError是内置的Exception filter,他会传递一个HandleErrorInfo给视图，里面包括ActionName,ControllerName和Exeption属性
+
+   ActionFilter实现IActionFilter
+
+   通过继承ActionFilterAttribute类（实现了IActionFilter, IResultFilter）来自定义处理方法
+
+   可以在controller中直接重写ActionFilterAttribute的方法
+
+   可以在 FilterConfig 注册为全局过滤器
+
+
+7、Section
+
+   Section只能在当前View或者他的Layout中被调用
+
+   通过IsSectionDefined("")可以判断Section是否被定义，或在当前View中是否能调用到
+
+
+8、Helper Method
+  
+   可以把Html代码打包成一个方法在应用程序中重复调用
+
+   Razor会自动对后台传递过来的Html代码进行编码
+
+   但Razor不会对MvcHtmlString的返回类型进行编码，可以使用Html.Encode(msg)对指定字符串进行编码
+
+   可以通过Html.EnableClientValidation(false);来禁用客户端对Model的验证
+
+   自定义模板，文件置于 /Views/Shared/EditorTemplates 下面
+
+
+9、Model Binding
+   
+   Model Binding是Mvc框架根据Http请求的数据创建.Net对象的一个过程
+
+   Request.Files[] 客户端上传的文件
+
+   可以使用[Bind(Prefix="",Exclude="")]来增加前缀，不查找或只查找某个属性Include=""
+
+   绑定到集合，如IList<Address>,则Html.EditFor("["+i+"].City");
+
+   手动调用Model Binding，UpdateModel(address);
+   
+   自定义ValueProvider需要实现IValueProvider,创建一个继承于ValueProviderFactory 的类，在方法GetValueProvider中调用之前实现的ValueProvider，在Global中注册继承ValueProviderFactor     的类，ValueProviderFactories.Factories.Add(new ...)
+
+   自定义ModelBinder，在Global中注册ModelBinders.Binders.Add(typeof(Address), new AddressBinder());
+
+
+10、Model验证
+   
+   ModelState，Html.ValidationSumarry(),Html.ValidationMessageFor();
+  
+   可以继承ValidationAttribute ，来重写基类的IsValid方法
+
+   也可以继承内置特性类:RequiredAttribute来重写IsValid方法
+
+   通过继承ValidationAttribute，可以自定义Model级特性
+
+   Model通过实现IValidatableObject 接口，可以在Model内部编写验证方法
+
+
+11、线程
+
+   为了处理线程的并发，可以加个锁
+
+   使用ManualResetEvent的信号机制，可以让线程等待接收到信号后再开始执行
+   
+
+12、事件
+
+   public class PriceChangedEventArgs : System.EventArgs {
+    public readonly decimal OldPrice;
+    public readonly decimal NewPrice;
+    public PriceChangedEventArgs(decimal oldPrice, decimal newPrice) {
+        OldPrice = oldPrice;
+        NewPrice = newPrice;
+    }
+}
+
+public class IPhone6 {
+    decimal price;
+    public event EventHandler<PriceChangedEventArgs> PriceChanged;
+
+    protected virtual void OnPriceChanged(PriceChangedEventArgs e) {
+        if (PriceChanged != null) PriceChanged(this, e);
+    }
+
+    public decimal Price {
+        get { return price; }
+        set {
+            if (price == value) return;
+            decimal oldPrice = price;
+            price = value;
+            // 如果调用列表不为空，则触发。
+            if (PriceChanged != null)
+                OnPriceChanged(new PriceChangedEventArgs(oldPrice, price));
+        }
+    }
+}
+
+class Program {
+    static void Main() {
+        IPhone6 iphone6 = new IPhone6() { Price = 5288M };
+        // 订阅事件
+        iphone6.PriceChanged +=iphone6_PriceChanged;
+
+        // 调整价格（事件发生）
+        iphone6.Price = 3999;
+        Console.ReadKey();
+    }
+
+    static void iphone6_PriceChanged(object sender, PriceChangedEventArgs e) {
+        Console.WriteLine("年终大促销，iPhone 6 只卖 " + e.NewPrice + " 元， 原价 " + e.OldPrice + " 元，快来抢！");
+    }
+}
+
+   
+
+   
+   

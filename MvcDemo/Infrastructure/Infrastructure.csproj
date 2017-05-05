@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc">
@@ -47,6 +48,7 @@
     <Compile Include="CountryValueProvider.cs" />
     <Compile Include="CustomValueProviderFactory.cs" />
     <Compile Include="AddressBinder.cs" />
+    <Compile Include="NoJoeOnMondayAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +56,9 @@
       <Project>{3C0F1EFA-58A3-4DE1-93DF-BFA3F4E7C19C}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
