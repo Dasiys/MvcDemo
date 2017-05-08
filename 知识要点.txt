@@ -185,7 +185,16 @@ class Program {
    
 /**2017/5/8**/
 
-http://www.cnblogs.com/lsxqw2004/archive/2015/08/07/4701979.html
+
+/**Entityframework 的知识**/
+http://www.cnblogs.com/lsxqw2004/archive/2015/08/07/4701979.html   
+
+/**HasRequired,HasMany以及级联删除的详细了解**/
+http://www.cnblogs.com/CreateMyself/p/4751994.html
+
+/**一些模型，项目分层的概念，如果使用延迟加载则不可以释放Context**/
+http://www.cnblogs.com/mecity/archive/2011/07/17/2108508.html
+
 
 
    
