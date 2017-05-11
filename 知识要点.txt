@@ -1,4 +1,4 @@
-
+/**http://www.cnblogs.com/powertoolsteam/archive/2015/08/13/4667892.html**/
 1、Url Routing:
 
    对Routing进行限制，Routing可以用正则表达式进行限制;
@@ -195,7 +195,7 @@ http://www.cnblogs.com/CreateMyself/p/4751994.html
 /**一些模型，项目分层的概念，如果使用延迟加载则不可以释放Context**/
 http://www.cnblogs.com/mecity/archive/2011/07/17/2108508.html
 
-
-
+/**EntityFramework开源项目**/
+https://github.com/nopSolutions/nopCommerce.git
    
    
