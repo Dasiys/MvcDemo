@@ -203,4 +203,6 @@ http://www.tuicool.com/articles/auQZNz
 
 /**单点登录**/
 http://www.cnblogs.com/jirigala/p/3263865.html
-   
+
+/**使用not Exists而不是not in**/
+http://www.cnblogs.com/CareySon/category/344769.html
