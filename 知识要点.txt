@@ -197,5 +197,10 @@ http://www.cnblogs.com/mecity/archive/2011/07/17/2108508.html
 
 /**EntityFramework开源项目**/
 https://github.com/nopSolutions/nopCommerce.git
-   
+
+/**不知道的一些EF小技巧**/
+http://www.tuicool.com/articles/auQZNz
+
+/**单点登录**/
+http://www.cnblogs.com/jirigala/p/3263865.html
    
